@@ -1,163 +1,132 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Metz Handball Menu</title>
-    
-    <link href="https://fonts.cdnfonts.com/css/lemon-milk" rel="stylesheet">
-
-    <style>
-        /* --- DESIGN GLOBAL --- */
-        body {
-            margin: 0; padding: 0;
-            background-color: #0e0e30; /* Bleu Nuit Metz */
-            background-image: url('img/pattern.png'); 
-            background-size: cover;
-            /* Using the imported Lemon Milk font */
-            font-family: 'LEMON MILK', sans-serif; 
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Conteneur principal */
-        .app-container {
-            width: 100%;
-            max-width: 450px;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* Le Logo */
-        .logo-area {
-            text-align: center;
-            margin-bottom: 30px;
-            margin-top: 20px;
-        }
-        .logo-img {
-            width: 120px;
-            height: auto;
-        }
-
-        /* --- BOUTONS --- */
-        .btn {
-            display: block;
-            text-decoration: none;
-            padding: 18px 10px;
-            transform: skewX(-15deg); /* L'inclinaison */
-            border-radius: 4px;
-            transition: transform 0.2s, filter 0.2s;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
-            text-align: center;
-            cursor: pointer;
-            margin-left: 10px;
-            margin-right: 10px;
-            box-sizing: border-box; /* Garde la taille fixe malgré la bordure */
-        }
-
-        /* Texte à l'intérieur du bouton */
-        .btn span {
-            display: block;
-            transform: skewX(15deg); /* Redresse le texte */
-            font-weight: 500; 
-            text-transform: uppercase;
-            font-size: 1.1rem;
-            letter-spacing: 1.5px; /* Espacement pour copier le style du site officiel */
-        }
-
-        /* Interaction */
-        .btn:active {
-            transform: skewX(-15deg) scale(0.95);
-            filter: brightness(0.9);
-        }
-
-        /* --- COULEURS AVEC BORDURES INVERSÉES --- */
-        .bg-white {
-            background-color: white;
-            color: #0e0e30;
-            border: 3px solid #ffec00; /* Bordure Jaune */
-        }
-
-        .bg-yellow {
-            background-color: #ffec00;
-            color: #0e0e30;
-            border: 3px solid white; /* Bordure Blanche */
-        }
-
-        /* --- MISE EN PAGE --- */
-        .row {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
+<style>
+    /* --- DESIGN GLOBAL --- */
+    body {
+        margin: 0; padding: 0;
+        background-color: #0e0e30;
+        background-image: url('img/pattern.png'); 
+        background-size: cover;
+        font-family: 'LEMON MILK', sans-serif; 
+        color: white;
         
-        .w-full { width: 100%; }
-        .col-left-large { flex: 2; } 
-        .col-right-small { flex: 1; }
-        .col-left-small { flex: 1; }
-        .col-right-large { flex: 1.5; }
+        /* CORRECTION ICI : Force la hauteur à la taille de l'écran exacte */
+        height: 100dvh; 
+        width: 100vw;
+        overflow: hidden; /* Empêche le scroll */
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between; /* Répartit l'espace entre le haut et le bas */
+    }
 
-        .heart { color: #e91e63; }
+    /* Conteneur principal : Il prend l'espace central */
+    .app-container {
+        width: 100%;
+        max-width: 450px;
+        padding: 0 20px; /* On enlève le padding vertical pour laisser Flexbox gérer */
+        box-sizing: border-box;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centre les boutons verticalement */
+        flex: 1; /* Prend tout l'espace disponible entre le haut et le footer */
+        gap: 12px; /* Réduit légèrement l'espace entre les boutons (15px -> 12px) */
+    }
 
-        /* --- FOOTER --- */
-        .footer {
-            margin-top: auto;
-            padding: 20px;
-            background: white;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            box-sizing: border-box;
-            font-family: 'LEMON MILK', sans-serif;
-        }
-        .footer img { height: 30px; opacity: 0.8; }
+    /* Le Logo */
+    .logo-area {
+        text-align: center;
+        /* On réduit les marges fixes pour éviter de manger trop d'espace */
+        margin-bottom: 2vh; 
+        margin-top: 1vh;
+    }
+    .logo-img {
+        width: 100px; /* Un peu plus petit pour assurer que ça rentre (120 -> 100) */
+        height: auto;
+        max-height: 15vh; /* Sécurité pour les écrans très plats */
+        object-fit: contain;
+    }
 
-    </style>
-</head>
-<body>
+    /* --- BOUTONS --- */
+    .btn {
+        display: block;
+        text-decoration: none;
+        /* Padding dynamique : s'adapte à la hauteur de l'écran */
+        padding: 2.2vh 10px; 
+        transform: skewX(-15deg);
+        border-radius: 4px;
+        transition: transform 0.2s, filter 0.2s;
+        box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+        text-align: center;
+        cursor: pointer;
+        margin-left: 10px;
+        margin-right: 10px;
+        box-sizing: border-box;
+        
+        /* Sécurité pour éviter que les textes se touchent sur très petit écran */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-    <div class="app-container">
-        <div class="logo-area">
-            <img src="img/logo metz.png" alt="Metz Handball" class="logo-img" onerror="this.style.display='none';">
-        </div>
+    /* Texte à l'intérieur du bouton */
+    .btn span {
+        display: block;
+        transform: skewX(15deg);
+        font-weight: 500; 
+        text-transform: uppercase;
+        font-size: 1rem; /* Réduit légèrement (1.1 -> 1.0) */
+        letter-spacing: 1.5px;
+    }
 
-        <a href="programme.html" class="btn bg-white w-full">
-            <span>Programme de match</span>
-        </a>
+    .btn:active {
+        transform: skewX(-15deg) scale(0.95);
+        filter: brightness(0.9);
+    }
 
-        <a href="warmup.html" class="btn bg-white w-full">
-            <span>Jeux – Warm Up</span>
-        </a>
+    /* --- COULEURS --- */
+    .bg-white {
+        background-color: white;
+        color: #0e0e30;
+        border: 3px solid #ffec00;
+    }
 
-        <div class="row">
-            <a href="mitemps.html" class="btn bg-white col-left-large">
-                <span>Jeu – Mi Temps</span>
-            </a>
-            <a href="club.html" class="btn bg-yellow col-right-small">
-                <span>Club</span>
-            </a>
-        </div>
+    .bg-yellow {
+        background-color: #ffec00;
+        color: #0e0e30;
+        border: 3px solid white;
+    }
 
-        <div class="row">
-            <a href="vote.html" class="btn bg-white col-left-small">
-                <span>Votez <b class="heart">❤</b></span>
-            </a>
-            <a href="billetterie.html" class="btn bg-yellow col-right-large">
-                <span>Billetterie</span>
-            </a>
-        </div>
-    </div>
+    /* --- MISE EN PAGE --- */
+    .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        width: 100%; /* Assure que la ligne prend la largeur */
+    }
+    
+    .w-full { width: 100%; }
+    .col-left-large { flex: 2; } 
+    .col-right-small { flex: 1; }
+    .col-left-small { flex: 1; }
+    .col-right-large { flex: 1.5; }
 
-    <div class="footer">
-        <img src="img/logo metz.png" alt="Logo" style="height:40px;">
-    </div>
+    .heart { color: #e91e63; }
 
-</body>
-</html>
+    /* --- FOOTER --- */
+    .footer {
+        /* Plus de margin-top auto car géré par le body flex */
+        padding: 15px;
+        background: white;
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Centré au lieu de space-around */
+        align-items: center;
+        box-sizing: border-box;
+        /* S'assure qu'il reste en bas sans être écrasé */
+        flex-shrink: 0; 
+        height: 60px; /* Hauteur fixe pour éviter les surprises */
+    }
+    .footer img { height: 30px; opacity: 0.8; }
+
+</style>
