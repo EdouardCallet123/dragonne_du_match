@@ -3,87 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Menu Dragonnes</title>
+    <title>Metz Handball Menu</title>
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            margin: 0; padding: 20px; 
-            background: #f8f9fa; 
-            text-align: center; 
-            color: #212529; 
+        /* --- DESIGN GLOBAL --- */
+        body {
+            margin: 0; padding: 0;
+            background-color: #0e0e30; /* Bleu Nuit Metz */
+            background-image: url('img/pattern.png'); /* Optionnel: si tu as une image de fond */
+            background-size: cover;
+            font-family: 'Oswald', 'Segoe UI', sans-serif; /* Police style sport */
+            color: white;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            min-height: 90vh;
+            align-items: center;
         }
 
-        h1 { font-size: 2rem; color: #d63384; margin-bottom: 10px; }
-        p { color: #6c757d; margin-bottom: 40px; }
-
-        .menu-container {
-            max-width: 400px;
-            margin: 0 auto;
+        /* Conteneur principal */
+        .app-container {
             width: 100%;
+            max-width: 450px; /* Largeur max mobile */
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espace vertical entre les boutons */
         }
 
+        /* Le Logo */
+        .logo-area {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+        .logo-img {
+            width: 120px;
+            height: auto;
+        }
+
+        /* --- LES BOUTONS INCLINÉS (Magie CSS) --- */
         .btn {
             display: block;
-            background: white;
-            color: #212529;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            padding: 25px 20px;
-            margin-bottom: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-            border: 2px solid transparent;
+            padding: 18px 10px;
+            transform: skewX(-15deg); /* L'inclinaison */
+            border-radius: 4px;
+            transition: transform 0.2s, filter 0.2s;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px; /* Marge pour compenser l'inclinaison sur les bords */
+            margin-right: 10px;
+        }
+
+        /* Redresser le texte à l'intérieur du bouton incliné */
+        .btn span {
+            display: block;
+            transform: skewX(15deg); /* On inverse l'inclinaison pour le texte */
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        /* Interaction */
+        .btn:active {
+            transform: skewX(-15deg) scale(0.95);
+            filter: brightness(0.9);
+        }
+
+        /* --- COULEURS --- */
+        .bg-white {
+            background-color: white;
+            color: #0e0e30; /* Texte bleu sur fond blanc */
+        }
+
+        .bg-yellow {
+            background-color: #ffec00; /* Jaune Metz */
+            color: #0e0e30; /* Texte bleu sur fond jaune */
+        }
+
+        /* --- MISE EN PAGE SPÉCIALE (Lignes coupées) --- */
+        .row {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            gap: 10px;
         }
-
-        .btn:active { transform: scale(0.97); }
-
-        /* Style spécifique pour le bouton VOTE (plus visible) */
-        .btn-vote {
-            background: #d63384;
-            color: white;
-            box-shadow: 0 10px 25px rgba(214, 51, 132, 0.3);
-        }
-        .btn-vote:active { background: #c2185b; }
-
-        .icon { font-size: 1.5rem; }
         
-        .footer { margin-top: 50px; font-size: 0.8rem; color: #adb5bd; }
+        /* Ajustement des largeurs pour ressembler à l'image */
+        .w-full { width: 100%; }
+        
+        /* Ligne Jeu Mi-temps / Club */
+        .col-left-large { flex: 2; } /* Prend 2/3 de la place */
+        .col-right-small { flex: 1; } /* Prend 1/3 de la place */
+
+        /* Ligne Votez / Billetterie */
+        .col-left-small { flex: 1; }
+        .col-right-large { flex: 1.5; }
+
+        /* Le coeur rouge */
+        .heart { color: #e91e63; }
+
+        /* --- FOOTER --- */
+        .footer {
+            margin-top: auto;
+            padding: 20px;
+            background: white;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .footer img { height: 30px; opacity: 0.8; }
+
     </style>
 </head>
 <body>
 
-    <div class="menu-container">
-        <div style="font-size: 3rem; margin-bottom: 10px;">🐉</div>
-        <h1>Match Day</h1>
-        <p>Bienvenue aux Arènes</p>
+    <div class="app-container">
+        <div class="logo-area">
+            <img src="img/logo.png" alt="Metz Handball" class="logo-img" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block'">
+            <h1 id="logo-text" style="display:none; color:white; font-style:italic;">METZ HANDBALL</h1>
+        </div>
 
-        <a href="vote.html" class="btn btn-vote">
-            <span>Voter pour la MVP</span>
-            <span class="icon">🗳️</span>
+        <a href="programme.html" class="btn bg-white w-full">
+            <span>Programme de match</span>
         </a>
 
-        <a href="https://metz-handball.com" target="_blank" class="btn">
-            <span>Site Officiel</span>
-            <span class="icon">🌐</span>
+        <a href="warmup.html" class="btn bg-white w-full">
+            <span>Jeux – Warm Up</span>
         </a>
 
-        <a href="https://boutique-metz-handball.com" target="_blank" class="btn">
-            <span>Boutique</span>
-            <span class="icon">🛍️</span>
-        </a>
+        <div class="row">
+            <a href="mitemps.html" class="btn bg-white col-left-large">
+                <span>Jeu – Mi Temps</span>
+            </a>
+            <a href="club.html" class="btn bg-yellow col-right-small">
+                <span>Club</span>
+            </a>
+        </div>
+
+        <div class="row">
+            <a href="vote.html" class="btn bg-white col-left-small">
+                <span>Votez <b class="heart">❤</b></span>
+            </a>
+            <a href="billetterie.html" class="btn bg-yellow col-right-large">
+                <span>Billetterie</span>
+            </a>
+        </div>
     </div>
 
     <div class="footer">
-        Application non-officielle Dragonne du Match
+        <span style="color:#0e0e30; font-weight:bold; font-style:italic;">U GOLF</span>
+        <span style="color:#0e0e30; font-weight:bold; font-style:italic;">KALIZEA</span>
+        <img src="img/logo.png" alt="Logo" style="height:40px;">
     </div>
 
 </body>
