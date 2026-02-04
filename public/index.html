@@ -11,22 +11,26 @@
         /* --- DESIGN GLOBAL --- */
         body {
             margin: 0; padding: 0;
-            background-color: #0e0e30; /* Bleu Nuit Metz */
-            /* Assure-toi que l'image est bien dans un dossier 'img' */
+            background-color: #0e0e30; 
             background-image: url('img/background.png'); 
             background-size: cover;
+            background-position: center;
             font-family: 'LEMON MILK', sans-serif; 
             color: white;   
             
-            /* CORRECTION RESPONSIVE : Hauteur écran bloquée */
             height: 100dvh; 
             width: 100vw;
-            overflow: hidden; /* Empêche le scroll */
+            overflow: hidden; 
             
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+        }
+
+        /* --- ANIMATION ROTATION --- */
+        @keyframes slow-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* Conteneur principal */
@@ -38,81 +42,63 @@
             
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centre verticalement */
-            flex: 1; /* Prend tout l'espace libre */
-            gap: 12px; /* Espacement flexible */
+            justify-content: center; 
+            flex: 1; 
+            gap: 12px; 
         }
 
-        /* Le Logo */
+        /* Le Logo avec animation */
         .logo-area {
             text-align: center;
-            margin-bottom: 2vh; 
-            margin-top: 1vh;
+            margin-top: 4vh; /* Un peu plus d'espace en haut */
+            margin-bottom: 2vh;
         }
         .logo-img {
-            width: 100px;
+            width: 120px; /* Légèrement plus grand pour le centrage visuel */
             height: auto;
-            max-height: 15vh;
+            max-height: 18vh;
             object-fit: contain;
+            /* L'animation demandée */
+            animation: slow-rotate 10s linear infinite;
         }
 
         /* --- BOUTONS --- */
         .btn {
-            display: block;
-            text-decoration: none;
-            padding: 2.2vh 10px; /* Padding responsive */
-            transform: skewX(-15deg);
-            border-radius: 4px;
-            transition: transform 0.2s, filter 0.2s;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
-            text-align: center;
-            cursor: pointer;
-            margin-left: 10px;
-            margin-right: 10px;
-            box-sizing: border-box;
-            
             display: flex;
             align-items: center;
             justify-content: center;
+            text-decoration: none;
+            padding: 2.2vh 10px;
+            transform: skewX(-15deg);
+            border-radius: 4px;
+            transition: transform 0.2s, filter 0.2s;
+            box-shadow: 3px 3px 15px rgba(0,0,0,0.4);
+            text-align: center;
+            cursor: pointer;
+            margin: 0 10px;
+            box-sizing: border-box;
         }
 
-        /* Texte à l'intérieur du bouton */
         .btn span {
             display: block;
             transform: skewX(15deg);
             font-weight: 500; 
             text-transform: uppercase;
-            font-size: 1rem;
-            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
-        /* Interaction au clic */
         .btn:active {
             transform: skewX(-15deg) scale(0.95);
             filter: brightness(0.9);
         }
 
         /* --- COULEURS --- */
-        .bg-white {
-            background-color: white;
-            color: #0e0e30;
-            border: 3px solid #ffec00;
-        }
-
-        .bg-yellow {
-            background-color: #ffec00;
-            color: #0e0e30;
-            border: 3px solid white;
-        }
+        .bg-white { background-color: white; color: #0e0e30; border: 3px solid #ffec00; }
+        .bg-yellow { background-color: #ffec00; color: #0e0e30; border: 3px solid white; }
 
         /* --- MISE EN PAGE --- */
-        .row {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            width: 100%;
-        }
-        
+        .row { display: flex; justify-content: space-between; gap: 10px; width: 100%; }
         .w-full { width: 100%; }
         .col-left-large { flex: 2; } 
         .col-right-small { flex: 1; }
@@ -121,27 +107,29 @@
 
         .heart { color: #e91e63; }
 
-        /* --- FOOTER --- */
+        /* --- FOOTER FLOTTANT --- */
         .footer {
-            padding: 15px;
+            margin-bottom: 20px; /* Décolle du bas pour voir le background */
             background: white;
-            width: 100%;
+            width: 90%; /* Pas toute la largeur */
+            max-width: 400px;
+            height: 55px;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-sizing: border-box;
+            border-radius: 50px; /* Coins très arrondis pour l'effet pilule */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             flex-shrink: 0; 
-            height: 60px;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <div class="logo-area">
-            <img src="img/logo metz.png" alt="Metz Handball" class="logo-img" onerror="this.style.display='none';">
-        </div>
+    <div class="logo-area">
+        <img src="img/logo metz.png" alt="Metz Handball" class="logo-img" onerror="this.src='https://via.placeholder.com/100';">
+    </div>
 
+    <div class="app-container">
         <a href="programme.html" class="btn bg-white w-full">
             <span>Programme de match</span>
         </a>
@@ -170,7 +158,7 @@
     </div>
 
     <div class="footer">
-        <img src="img/logo metz.png" alt="Logo Footer" style="height:35px;">
+        <img src="img/logo metz.png" alt="Logo Footer" style="height:30px;">
     </div>
 
 </body>
