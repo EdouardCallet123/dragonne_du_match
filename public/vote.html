@@ -3,204 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Metz Handball</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-
+    <title>Dragonne du Match</title>
     <style>
-        * { box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            margin: 0; padding: 20px; 
+            background: #f8f9fa; 
+            text-align: center; 
+            color: #212529; 
+        }
         
-        body {
-            margin: 0; padding: 0;
-            /* Le vrai bleu foncé du club */
-            background-color: #110b29; 
-            /* Si tu as l'image de fond avec les dragons, décommente la ligne dessous : */
-            /* background-image: url('img/pattern.png'); background-size: cover; */
-            font-family: 'Bebas Neue', sans-serif; /* La police sport par excellence */
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        h1 { margin-bottom: 5px; font-size: 1.6rem; color: #d63384; }
+        p { color: #6c757d; margin-bottom: 25px; font-size: 0.95rem; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px; 
+            max-width: 600px; 
+            margin: 0 auto; 
+            padding-bottom: 40px;
+        }
+        
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+            border: 3px solid transparent;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- CONTENEUR PRINCIPAL --- */
-        .app-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+        .card-img {
             width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        /* --- LOGO --- */
-        .logo-area {
-            margin-top: 30px;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-        .logo-img {
-            width: 140px; /* Taille ajustée */
-            filter: drop-shadow(0 0 15px rgba(255,236,0, 0.2)); /* Petite lueur jaune subtile */
-        }
-
-        /* --- LE MENU --- */
-        .menu-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Espace vertical entre les lignes */
-            width: 100%;
-        }
-
-        /* Liens (Boutons) */
-        .btn-link {
-            text-decoration: none;
+            height: 200px; /* Un peu plus haut pour bien voir les joueuses */
+            object-fit: cover; 
+            object-position: top center; 
+            background-color: #eee;
             display: block;
-            width: 100%;
         }
 
-        /* Forme du bouton (Le parallélogramme) */
-        .shape {
-            height: 65px; /* Hauteur fixe pour ressembler à l'appli */
-            display: flex;
-            align-items: center; /* Centre le texte verticalement */
-            justify-content: center; /* Centre le texte horizontalement */
-            transform: skewX(-20deg); /* L'angle agressif (-20 degrés) */
-            border-radius: 4px;
-            transition: transform 0.1s, filter 0.1s;
-            box-shadow: 5px 5px 0px rgba(0,0,0,0.3); /* Ombre dure pour l'effet sticker */
-        }
-
-        /* Le texte à l'intérieur (on annule l'inclinaison) */
-        .shape span {
-            transform: skewX(20deg); /* On redresse le texte */
-            font-size: 26px; /* Texte GROS */
-            letter-spacing: 1px;
-            color: #110b29; /* Bleu foncé pour le texte */
-            text-align: center;
-            line-height: 1;
-            padding-top: 4px; /* Petit ajustement optique pour cette police */
-        }
-
-        /* --- COULEURS --- */
-        .bg-white { background-color: white; }
-        .bg-yellow { background-color: #ffec00; } /* Le jaune officiel vif */
-
-        /* --- INTERACTION --- */
-        .shape:active {
-            transform: skewX(-20deg) scale(0.98) translate(2px, 2px);
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.3);
-            filter: brightness(0.95);
-        }
-
-        /* --- LIGNES SPÉCIALES (2 BOUTONS) --- */
-        .row-split {
-            display: flex;
-            width: 100%;
-            gap: 15px; /* L'espace entre les deux morceaux */
-            padding: 0 10px; /* Pour éviter que les pointes touchent le bord */
-        }
-
-        /* Gestion des largeurs spécifiques */
-        /* Pour "JEU - MI TEMPS" (Large à gauche) + "CLUB" (Court à droite) */
-        .w-60 { flex: 6; } 
-        .w-40 { flex: 4; }
-
-        /* Pour "VOTEZ" (Court à gauche) + "BILLETTERIE" (Large à droite) */
-        .w-35 { flex: 3.5; }
-        .w-65 { flex: 6.5; }
-
-        .heart { color: #e53935; font-family: sans-serif; font-size: 22px; margin-left: 5px; }
-
-        /* --- FOOTER (La barre blanche en bas) --- */
-        .footer-bar {
-            background: white;
-            width: 100%;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto; /* Pousse le footer tout en bas */
-            border-top: 4px solid #ffec00; /* La petite ligne jaune au dessus */
-        }
-
-        /* Faux logos pour le footer (en texte stylisé) */
-        .sponsor-text {
-            color: #110b29;
-            font-weight: bold;
-            font-family: sans-serif;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-        }
-        .sponsor-ugolf { color: #d32f2f; font-weight: 800; margin-right: 5px; }
+        .card-info { padding: 12px; background: white; }
+        .num { font-size: 1.4rem; font-weight: 900; color: #d63384; display: block; line-height: 1; margin-bottom: 4px; }
+        .name { font-weight: 700; font-size: 0.9rem; line-height: 1.2; display: block; text-transform: uppercase;}
         
-        .footer-logo-club {
-            height: 40px;
-        }
-
+        .card:active { transform: scale(0.95); border-color: #d63384; }
+        
+        .success-msg { display: none; margin-top: 40px; padding: 25px; background: #d1e7dd; border-radius: 15px; color: #0f5132; border: 1px solid #badbcc; }
+        
+        body.voted .grid { display: none; }
+        body.voted .success-msg { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
+    <a href="/" style="display:inline-block; text-decoration:none; color:#6c757d; font-weight:bold; margin-bottom:15px;">
+    ⬅ Retour au menu
+    </a>
 
-    <div class="app-container">
-        <div class="logo-area">
-            <img src="img/logo mettz.png" alt="Metz Handball" class="logo-img">
-        </div>
-
-        <div class="menu-grid">
-            <a href="programme.html" class="btn-link">
-                <div class="shape bg-white">
-                    <span>PROGRAMME DE MATCH</span>
-                </div>
-            </a>
-
-            <a href="warmup.html" class="btn-link">
-                <div class="shape bg-white">
-                    <span>JEUX – WARM UP</span>
-                </div>
-            </a>
-
-            <div class="row-split">
-                <a href="mitemps.html" class="btn-link w-60">
-                    <div class="shape bg-white">
-                        <span>JEU – MI TEMPS</span>
-                    </div>
-                </a>
-                <a href="club.html" class="btn-link w-40">
-                    <div class="shape bg-yellow">
-                        <span>CLUB</span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="row-split">
-                <a href="vote.html" class="btn-link w-35">
-                    <div class="shape bg-white">
-                        <span>VOTEZ <b class="heart">❤</b></span>
-                    </div>
-                </a>
-                <a href="billetterie.html" class="btn-link w-65">
-                    <div class="shape bg-yellow">
-                        <span>BILLETTERIE</span>
-                    </div>
-                </a>
-            </div>
-        </div>
+    <div id="main">
+        <h1>Dragonne du Match 🔥</h1>
+        <p>Touchez une photo pour voter !</p>
+        <div class="grid" id="grid"></div>
     </div>
 
-    <div class="footer-bar">
-        <div class="sponsor-text">
-            <span class="sponsor-ugolf">U</span> GOLF
-        </div>
-
-        <div class="sponsor-text" style="font-style:italic; font-weight:900; font-size:18px;">
-            K<span style="color:#fbc02d">⚡</span>lizea
-        </div>
-
-        <img src="img/logo mettz.png" class="footer-logo-club">
+    <div class="success-msg">
+        <h2>Vote enregistré ! ✅</h2>
+        <p>Merci pour ton soutien aux Dragonnes.</p>
     </div>
 
+    <script>
+        // --- CONFIGURATION DE L'ÉQUIPE (Fichiers basés sur ta capture d'écran) ---
+        // J'ai mis les numéros officiels correspondants aux noms
+        const players = [
+            { id: 1,  name: "A. Albek",         num: 28, img: "img/MHB_ANNA_ALBEK_EHF-min-1.png" },
+            { id: 2,  name: "A. Augustine",     num: 14, img: "img/MHB_ANNEEMMANUELLE_AUGUSTINE_EHF-min.png" },
+            { id: 3,  name: "B. Ngombele",      num: 29, img: "img/MHB_BETCHAIDELLE_NGOMBELE_EHF-min.png" },
+            { id: 4,  name: "C. Gabriel",       num: 12, img: "img/MHB_CATHERINE_GABRIEL_EHF-min.png" },
+            { id: 5,  name: "C. Valentini",     num: 11, img: "img/MHB_CHLOE_VALENTINI_EHF-min.png" },
+            { id: 6,  name: "J. Bundsen",       num: 1,  img: "img/MHB_JOHANNA_BUNDSEN_B-min.png" },
+            { id: 7,  name: "L. Godard",        num: 31, img: "img/MHB_LAURA_GODARD_EHF-min.png" },
+            { id: 8,  name: "L. Schneider",     num: 32, img: "img/MHB_LAURA_SCHNEIDER_EHF-min.png" },
+            { id: 9,  name: "L. Grandveau",     num: 10, img: "img/MHB_LENA_GRANDVEAU_EHF-min.png" },
+            { id: 10, name: "L. Granier",       num: 6,  img: "img/MHB_LUCIE_GRANIER_EHF-min.png" },
+            { id: 11, name: "L. Borg",          num: 71, img: "img/MHB_LYLOU_BORG_EHF-min.png" },
+            { id: 12, name: "M. Errard",        num: 4,  img: "img/MHB_MANON_ERRARD_EHF-min-1.png" },
+            { id: 13, name: "P. Vamos",         num: 2,  img: "img/MHB_PETRA_VAMOS_EHF-min.png" },
+            { id: 14, name: "S. Novotna",       num: 16, img: "img/MHB_SABRINA_NOVOTNA_EHF-min.png" },
+            { id: 15, name: "S. Bouktit",       num: 27, img: "img/MHB_SARAH_BOUKTIT_EHF-min.png" },
+            { id: 16, name: "S. Wajoka",        num: 98, img: "img/MHB_SUZANNE_WAJOKA_EHF-min.png" },
+            { id: 17, name: "T. Axner",         num: 9,  img: "img/MHB_TYRA_AXNER_EHF-min.png" },
+            { id: 18, name: "X. Smits",         num: 22, img: "img/MHB_XENIA_SMITS_EHF-min-min-min.png" }
+        ];
+
+        const grid = document.getElementById('grid');
+        // Changement de clé pour forcer le nettoyage du cache et voir les nouvelles images
+        const STORAGE_KEY = 'dragonne_vote_done_final'; 
+
+        if (localStorage.getItem(STORAGE_KEY)) {
+            document.body.classList.add('voted');
+        }
+
+        players.forEach(p => {
+            const el = document.createElement('div');
+            el.className = 'card';
+            
+            // Si l'image ne charge pas, on affiche un carré gris avec le numéro
+            el.innerHTML = `
+                <img src="${p.img}" class="card-img" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.parentNode.innerHTML='<div style=\'height:200px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:3rem;color:#ccc;font-weight:bold\'>${p.num}</div><div class=\'card-info\'><span class=\'num\'>#${p.num}</span><span class=\'name\'>${p.name}</span></div>'">
+                <div class="card-info">
+                    <span class="num">#${p.num}</span>
+                    <span class="name">${p.name}</span>
+                </div>
+            `;
+            
+            el.onclick = () => {
+                document.body.classList.add('voted');
+                localStorage.setItem(STORAGE_KEY, 'true');
+                
+                fetch('/api/vote', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ playerId: p.id })
+                }).catch(err => console.error(err));
+            };
+            grid.appendChild(el);
+        });
+    </script>
 </body>
 </html>
