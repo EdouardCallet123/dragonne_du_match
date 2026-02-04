@@ -1,5 +1,5 @@
 {
-  "name": "vote-stade-prod",
+  "name": "dragonne_du_match",
   "version": "1.0.0",
   "description": "Vote stade optimisé",
   "dependencies": {
