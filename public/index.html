@@ -4,31 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Metz Handball Menu</title>
+    
+    <link href="https://fonts.cdnfonts.com/css/lemon-milk" rel="stylesheet">
+
     <style>
-        /* --- IMPORT LEMON MILK --- */
-        /* Note: Replace the URL with your actual font file path or CDN link */
-        @font-face {
-            font-family: 'Lemon Milk';
-            src: url('fonts/LemonMilk.otf') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: 'Lemon Milk';
-            src: url('fonts/LemonMilk-Bold.otf') format('opentype');
-            font-weight: bold;
-            font-style: normal;
-        }
-
         /* --- DESIGN GLOBAL --- */
         body {
             margin: 0; padding: 0;
-            background-color: #0e0e30; 
+            background-color: #0e0e30; /* Bleu Nuit Metz */
             background-image: url('img/pattern.png'); 
             background-size: cover;
-            /* Updated font-family here */
-            font-family: 'Lemon Milk', sans-serif; 
+            /* Using the imported Lemon Milk font */
+            font-family: 'LEMON MILK', sans-serif; 
             color: white;
             min-height: 100vh;
             display: flex;
@@ -36,6 +23,7 @@
             align-items: center;
         }
 
+        /* Conteneur principal */
         .app-container {
             width: 100%;
             max-width: 450px;
@@ -46,6 +34,7 @@
             gap: 15px;
         }
 
+        /* Le Logo */
         .logo-area {
             text-align: center;
             margin-bottom: 30px;
@@ -56,11 +45,12 @@
             height: auto;
         }
 
+        /* --- BOUTONS --- */
         .btn {
             display: block;
             text-decoration: none;
             padding: 18px 10px;
-            transform: skewX(-15deg);
+            transform: skewX(-15deg); /* L'inclinaison */
             border-radius: 4px;
             transition: transform 0.2s, filter 0.2s;
             box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
@@ -68,37 +58,39 @@
             cursor: pointer;
             margin-left: 10px;
             margin-right: 10px;
-            box-sizing: border-box; 
+            box-sizing: border-box; /* Garde la taille fixe malgré la bordure */
         }
 
+        /* Texte à l'intérieur du bouton */
         .btn span {
             display: block;
-            transform: skewX(15deg);
-            /* Lemon Milk is naturally bold, but we'll ensure it stands out */
-            font-weight: bold; 
+            transform: skewX(15deg); /* Redresse le texte */
+            font-weight: 500; 
             text-transform: uppercase;
-            font-size: 1.1rem; /* Adjusted slightly as Lemon Milk is wider than Oswald */
-            letter-spacing: 0.5px;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px; /* Espacement pour copier le style du site officiel */
         }
 
+        /* Interaction */
         .btn:active {
             transform: skewX(-15deg) scale(0.95);
             filter: brightness(0.9);
         }
 
-        /* --- COULEURS AVEC BORDURES --- */
+        /* --- COULEURS AVEC BORDURES INVERSÉES --- */
         .bg-white {
             background-color: white;
             color: #0e0e30;
-            border: 3px solid #ffec00; 
+            border: 3px solid #ffec00; /* Bordure Jaune */
         }
 
         .bg-yellow {
             background-color: #ffec00;
             color: #0e0e30;
-            border: 3px solid white; 
+            border: 3px solid white; /* Bordure Blanche */
         }
 
+        /* --- MISE EN PAGE --- */
         .row {
             display: flex;
             justify-content: space-between;
@@ -113,6 +105,7 @@
 
         .heart { color: #e91e63; }
 
+        /* --- FOOTER --- */
         .footer {
             margin-top: auto;
             padding: 20px;
@@ -122,8 +115,7 @@
             justify-content: space-around;
             align-items: center;
             box-sizing: border-box;
-            /* Applying font to footer text as well */
-            font-family: 'Lemon Milk', sans-serif;
+            font-family: 'LEMON MILK', sans-serif;
         }
         .footer img { height: 30px; opacity: 0.8; }
 
