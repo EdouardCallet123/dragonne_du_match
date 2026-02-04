@@ -41,20 +41,19 @@
             height: auto;
         }
 
-        /* --- LES BOUTONS INCLINÉS (Magie CSS) --- */
         .btn {
             display: block;
             text-decoration: none;
             padding: 18px 10px;
-            transform: skewX(-15deg); /* L'inclinaison */
+            transform: skewX(-15deg);
             border-radius: 4px;
             transition: transform 0.2s, filter 0.2s;
             box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
             text-align: center;
-            border: none;
             cursor: pointer;
-            margin-left: 10px; /* Marge pour compenser l'inclinaison sur les bords */
+            margin-left: 10px;
             margin-right: 10px;
+            box-sizing: border-box; /* Added this to keep sizes consistent */
         }
 
         /* Redresser le texte à l'intérieur du bouton incliné */
@@ -76,12 +75,14 @@
         /* --- COULEURS --- */
         .bg-white {
             background-color: white;
-            color: #0e0e30; /* Texte bleu sur fond blanc */
+            color: #0e0e30;
+            border: 3px solid #ffec00; /* Yellow border */
         }
 
         .bg-yellow {
-            background-color: #ffec00; /* Jaune Metz */
-            color: #0e0e30; /* Texte bleu sur fond jaune */
+            background-color: #ffec00;
+            color: #0e0e30;
+            border: 3px solid white; /* White border */
         }
 
         /* --- MISE EN PAGE SPÉCIALE (Lignes coupées) --- */
@@ -124,8 +125,7 @@
 
     <div class="app-container">
         <div class="logo-area">
-            <img src="img/logo.png" alt="Metz Handball" class="logo-img" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block'">
-            <h1 id="logo-text" style="display:none; color:white; font-style:italic;">METZ HANDBALL</h1>
+            <img src="img/logo metz.png" alt="Metz Handball" class="logo-img" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block'">
         </div>
 
         <a href="programme.html" class="btn bg-white w-full">
