@@ -1,0 +1,8 @@
+{
+  "name": "vote-stade-prod",
+  "version": "1.0.0",
+  "description": "Vote stade optimisé",
+  "dependencies": {
+    "@upstash/redis": "^1.28.0"
+  }
+}
