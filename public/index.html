@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dragonne du Match</title>
+    <title>Menu Dragonnes</title>
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
@@ -11,124 +11,80 @@
             background: #f8f9fa; 
             text-align: center; 
             color: #212529; 
-        }
-        
-        h1 { margin-bottom: 5px; font-size: 1.6rem; color: #d63384; }
-        p { color: #6c757d; margin-bottom: 25px; font-size: 0.95rem; }
-        
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 15px; 
-            max-width: 600px; 
-            margin: 0 auto; 
-            padding-bottom: 40px;
-        }
-        
-        .card {
-            background: white; 
-            border-radius: 16px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
-            cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-            position: relative;
-            border: 3px solid transparent;
-            -webkit-tap-highlight-color: transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 90vh;
         }
 
-        .card-img {
+        h1 { font-size: 2rem; color: #d63384; margin-bottom: 10px; }
+        p { color: #6c757d; margin-bottom: 40px; }
+
+        .menu-container {
+            max-width: 400px;
+            margin: 0 auto;
             width: 100%;
-            height: 200px; /* Un peu plus haut pour bien voir les joueuses */
-            object-fit: cover; 
-            object-position: top center; 
-            background-color: #eee;
-            display: block;
         }
 
-        .card-info { padding: 12px; background: white; }
-        .num { font-size: 1.4rem; font-weight: 900; color: #d63384; display: block; line-height: 1; margin-bottom: 4px; }
-        .name { font-weight: 700; font-size: 0.9rem; line-height: 1.2; display: block; text-transform: uppercase;}
+        .btn {
+            display: block;
+            background: white;
+            color: #212529;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 25px 20px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn:active { transform: scale(0.97); }
+
+        /* Style spécifique pour le bouton VOTE (plus visible) */
+        .btn-vote {
+            background: #d63384;
+            color: white;
+            box-shadow: 0 10px 25px rgba(214, 51, 132, 0.3);
+        }
+        .btn-vote:active { background: #c2185b; }
+
+        .icon { font-size: 1.5rem; }
         
-        .card:active { transform: scale(0.95); border-color: #d63384; }
-        
-        .success-msg { display: none; margin-top: 40px; padding: 25px; background: #d1e7dd; border-radius: 15px; color: #0f5132; border: 1px solid #badbcc; }
-        
-        body.voted .grid { display: none; }
-        body.voted .success-msg { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .footer { margin-top: 50px; font-size: 0.8rem; color: #adb5bd; }
     </style>
 </head>
 <body>
 
-    <div id="main">
-        <h1>Dragonne du Match 🔥</h1>
-        <p>Touchez une photo pour voter !</p>
-        <div class="grid" id="grid"></div>
+    <div class="menu-container">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🐉</div>
+        <h1>Match Day</h1>
+        <p>Bienvenue aux Arènes</p>
+
+        <a href="vote.html" class="btn btn-vote">
+            <span>Voter pour la MVP</span>
+            <span class="icon">🗳️</span>
+        </a>
+
+        <a href="https://metz-handball.com" target="_blank" class="btn">
+            <span>Site Officiel</span>
+            <span class="icon">🌐</span>
+        </a>
+
+        <a href="https://boutique-metz-handball.com" target="_blank" class="btn">
+            <span>Boutique</span>
+            <span class="icon">🛍️</span>
+        </a>
     </div>
 
-    <div class="success-msg">
-        <h2>Vote enregistré ! ✅</h2>
-        <p>Merci pour ton soutien aux Dragonnes.</p>
+    <div class="footer">
+        Application non-officielle Dragonne du Match
     </div>
 
-    <script>
-        // --- CONFIGURATION DE L'ÉQUIPE (Fichiers basés sur ta capture d'écran) ---
-        // J'ai mis les numéros officiels correspondants aux noms
-        const players = [
-            { id: 1,  name: "A. Albek",         num: 28, img: "img/MHB_ANNA_ALBEK_EHF-min-1.png" },
-            { id: 2,  name: "A. Augustine",     num: 14, img: "img/MHB_ANNEEMMANUELLE_AUGUSTINE_EHF-min.png" },
-            { id: 3,  name: "B. Ngombele",      num: 29, img: "img/MHB_BETCHAIDELLE_NGOMBELE_EHF-min.png" },
-            { id: 4,  name: "C. Gabriel",       num: 12, img: "img/MHB_CATHERINE_GABRIEL_EHF-min.png" },
-            { id: 5,  name: "C. Valentini",     num: 11, img: "img/MHB_CHLOE_VALENTINI_EHF-min.png" },
-            { id: 6,  name: "J. Bundsen",       num: 1,  img: "img/MHB_JOHANNA_BUNDSEN_B-min.png" },
-            { id: 7,  name: "L. Godard",        num: 31, img: "img/MHB_LAURA_GODARD_EHF-min.png" },
-            { id: 8,  name: "L. Schneider",     num: 32, img: "img/MHB_LAURA_SCHNEIDER_EHF-min.png" },
-            { id: 9,  name: "L. Grandveau",     num: 10, img: "img/MHB_LENA_GRANDVEAU_EHF-min.png" },
-            { id: 10, name: "L. Granier",       num: 6,  img: "img/MHB_LUCIE_GRANIER_EHF-min.png" },
-            { id: 11, name: "L. Borg",          num: 71, img: "img/MHB_LYLOU_BORG_EHF-min.png" },
-            { id: 12, name: "M. Errard",        num: 4,  img: "img/MHB_MANON_ERRARD_EHF-min-1.png" },
-            { id: 13, name: "P. Vamos",         num: 2,  img: "img/MHB_PETRA_VAMOS_EHF-min.png" },
-            { id: 14, name: "S. Novotna",       num: 16, img: "img/MHB_SABRINA_NOVOTNA_EHF-min.png" },
-            { id: 15, name: "S. Bouktit",       num: 27, img: "img/MHB_SARAH_BOUKTIT_EHF-min.png" },
-            { id: 16, name: "S. Wajoka",        num: 98, img: "img/MHB_SUZANNE_WAJOKA_EHF-min.png" },
-            { id: 17, name: "T. Axner",         num: 9,  img: "img/MHB_TYRA_AXNER_EHF-min.png" },
-            { id: 18, name: "X. Smits",         num: 22, img: "img/MHB_XENIA_SMITS_EHF-min-min-min.png" }
-        ];
-
-        const grid = document.getElementById('grid');
-        // Changement de clé pour forcer le nettoyage du cache et voir les nouvelles images
-        const STORAGE_KEY = 'dragonne_vote_done_final'; 
-
-        if (localStorage.getItem(STORAGE_KEY)) {
-            document.body.classList.add('voted');
-        }
-
-        players.forEach(p => {
-            const el = document.createElement('div');
-            el.className = 'card';
-            
-            // Si l'image ne charge pas, on affiche un carré gris avec le numéro
-            el.innerHTML = `
-                <img src="${p.img}" class="card-img" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.parentNode.innerHTML='<div style=\'height:200px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:3rem;color:#ccc;font-weight:bold\'>${p.num}</div><div class=\'card-info\'><span class=\'num\'>#${p.num}</span><span class=\'name\'>${p.name}</span></div>'">
-                <div class="card-info">
-                    <span class="num">#${p.num}</span>
-                    <span class="name">${p.name}</span>
-                </div>
-            `;
-            
-            el.onclick = () => {
-                document.body.classList.add('voted');
-                localStorage.setItem(STORAGE_KEY, 'true');
-                
-                fetch('/api/vote', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ playerId: p.id })
-                }).catch(err => console.error(err));
-            };
-            grid.appendChild(el);
-        });
-    </script>
 </body>
 </html>
