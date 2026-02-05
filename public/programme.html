@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lecture PDF</title>
+    <style>
+        /* Reset de base pour que ça colle aux bords */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* Empêche le scroll de la page elle-même, seul le PDF scroll */
+            background-color: #0e0e30; /* Couleur de fond pendant le chargement */
+        }
+
+        /* Conteneur du PDF */
+        .pdf-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* L'iframe qui contient le PDF */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Le bouton retour flottant (Floating Action Button style) */
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%); /* Centré horizontalement */
+            background: #ffec00;
+            color: #0e0e30;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: sans-serif;
+            border-radius: 50px; /* Forme de pilule */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Ombre pour le détacher du PDF */
+            z-index: 1000; /* S'assure qu'il est au-dessus du PDF */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Espace entre la flèche et le texte */
+        }
+
+        .back-button:active {
+            transform: translateX(-50%) scale(0.95); /* Petit effet de clic */
+        }
+
+        /* Message de secours si le navigateur ne supporte pas l'iframe (rare sur mobile moderne) */
+        .fallback {
+            display: none;
+            color: white;
+            font-family: sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        iframe:focus { 
+            outline: none; 
+        } 
+
+        /* Afficher le fallback uniquement si nécessaire (géré par JS ou CSS si l'iframe échoue visuellement) */
+        
+    </style>
+</head>
+<body>
+
+    <div class="pdf-container">
+        <iframe src="img/A5_EHF_GYOR.pdf" type="application/pdf">
+            <div class="fallback">
+                <p>Votre navigateur ne peut pas afficher ce PDF directement.</p>
+                <a href="img/A5_EHF_GYOR.pdf" class="btn">Télécharger le PDF</a>
+            </div>
+        </iframe>
+    </div>
+
+    <a href="/" class="back-button">
+        <span>⬅</span> Menu
+    </a>
+
+</body>
+</html>
