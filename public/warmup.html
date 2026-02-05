@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote pour le Match</title>
+    <style>
+        body { font-family: sans-serif; background: #0e0e30; color: white; text-align: center; padding: 20px; }
+        .card { background: white; color: #0e0e30; padding: 30px; border-radius: 15px; max-width: 500px; margin: auto; }
+        h1 { text-transform: uppercase; font-size: 1.5rem; margin-bottom: 20px; }
+        
+        /* Style du formulaire */
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], input[type="email"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        
+        .image-container img { max-width: 100%; border-radius: 10px; margin-bottom: 20px; }
+        
+        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .btn-vote { background: #0e0e30; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .btn-vote:hover { background: #ffec00; color: #0e0e30; }
+        
+        #status-message { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Faites votre choix !</h1>
+        
+        <div class="image-container">
+            <img src="img/OU EST LE BALLON-1.png" alt="Image du match" id="match-image">
+        </div>
+
+        <form id="voteForm">
+            <div class="form-group">
+                <label>Pseudo</label>
+                <input type="text" id="pseudo" placeholder="Ex: FootFan99" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="votre@email.com" required>
+            </div>
+
+            <p><strong>Votre pronostic :</strong></p>
+            <div class="options">
+                <button type="button" class="btn-vote" onclick="sendVote(1)">Option 1</button>
+                <button type="button" class="btn-vote" onclick="sendVote(2)">Option 2</button>
+                <button type="button" class="btn-vote" onclick="sendVote(3)">Option 3</button>
+                <button type="button" class="btn-vote" onclick="sendVote(4)">Option 4</button>
+            </div>
+        </form>
+        
+        <p id="status-message"></p>
+        <a href="/" style="display:inline-block; margin-top:20px; color:#0e0e30;">⬅ Retour au menu</a>
+    </div>
+
+    <script>
+        async function sendVote(choice) {
+            const pseudo = document.getElementById('pseudo').value;
+            const email = document.getElementById('email').value;
+            const status = document.getElementById('status-message');
+
+            if (!pseudo || !email) {
+                alert("Merci de remplir ton pseudo et ton email !");
+                return;
+            }
+
+            status.innerText = "Envoi en cours...";
+
+            // Remplace ces infos par tes identifiants Upstash Redis
+            const UPSTASH_URL = env.UPSTASH_REDIS_REST_URL;
+            const UPSTASH_TOKEN = env.UPSTASH_REDIS_REST_TOKEN;
+            const data = {
+                pseudo: pseudo,
+                email: email,
+                choix: choice,
+                date: new Date().toISOString()
+            };
+
+            try {
+                // On utilise LPUSH pour créer une liste de réponses dans Redis
+                const response = await fetch(`${UPSTASH_URL}/lpush/votes/${JSON.stringify(data)}`, {
+                    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` }
+                });
+
+                if (response.ok) {
+                    status.style.color = "green";
+                    status.innerText = "✅ Vote envoyé avec succès !";
+                } else {
+                    throw new Error();
+                }
+            } catch (error) {
+                status.style.color = "red";
+                status.innerText = "❌ Erreur lors de l'envoi.";
+            }
+        }
+    </script>
+</body>
+</html>
