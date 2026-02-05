@@ -17,20 +17,12 @@
             background-position: center;
             font-family: 'LEMON MILK', sans-serif; 
             color: white;   
-            
             height: 100dvh; 
             width: 100vw;
             overflow: hidden; 
-            
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        /* --- ANIMATION ROTATION --- */
-        @keyframes slow-rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         /* Conteneur principal */
@@ -39,7 +31,6 @@
             max-width: 450px;
             padding: 0 20px;
             box-sizing: border-box;
-            
             display: flex;
             flex-direction: column;
             justify-content: center; 
@@ -47,19 +38,17 @@
             gap: 12px; 
         }
 
-        /* Le Logo avec animation */
+        /* Le Logo - FIXE (animation supprimée) */
         .logo-area {
             text-align: center;
-            margin-top: 4vh; /* Un peu plus d'espace en haut */
+            margin-top: 4vh; 
             margin-bottom: 2vh;
         }
         .logo-img {
-            width: 120px; /* Légèrement plus grand pour le centrage visuel */
+            width: 120px;
             height: auto;
             max-height: 18vh;
             object-fit: contain;
-            /* L'animation demandée */
-            animation: slow-rotate 10s linear infinite;
         }
 
         /* --- BOUTONS --- */
@@ -93,11 +82,9 @@
             filter: brightness(0.9);
         }
 
-        /* --- COULEURS --- */
         .bg-white { background-color: white; color: #0e0e30; border: 3px solid #ffec00; }
         .bg-yellow { background-color: #ffec00; color: #0e0e30; border: 3px solid white; }
 
-        /* --- MISE EN PAGE --- */
         .row { display: flex; justify-content: space-between; gap: 10px; width: 100%; }
         .w-full { width: 100%; }
         .col-left-large { flex: 2; } 
@@ -107,26 +94,44 @@
 
         .heart { color: #e91e63; }
 
-        /* --- FOOTER FLOTTANT --- */
+        /* --- FOOTER BANDEAU DÉFILANT INFINI --- */
         .footer {
-            margin-bottom: 20px; /* Décolle du bas pour voir le background */
+            margin-bottom: 20px;
             background: white;
-            width: 90%; /* Pas toute la largeur */
+            width: 90%;
             max-width: 400px;
             height: 55px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50px; /* Coins très arrondis pour l'effet pilule */
+            border-radius: 50px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             flex-shrink: 0; 
+            overflow: hidden; /* Cache ce qui dépasse de la pilule */
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .scroll-container {
+            display: flex;
+            width: fit-content;
+            animation: scroll-left 15s linear infinite; /* Animation de défilement */
+        }
+
+        .scroll-container img {
+            height: 30px;
+            margin: 0 20px; /* Espace entre les logos */
+            flex-shrink: 0;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* On décale de la moitié car on a doublé la liste */
         }
     </style>
 </head>
 <body>
 
     <div class="logo-area">
-        <img src="img/logo metz.png" alt="Metz Handball" class="logo-img" onerror="this.src='https://via.placeholder.com/100';">
+        <img src="img/logo metz.png" alt="Metz Handball" class="logo-img">
     </div>
 
     <div class="app-container">
@@ -158,7 +163,17 @@
     </div>
 
     <div class="footer">
-        <img src="img/logo metz.png" alt="Logo Footer" style="height:30px;">
+        <div class="scroll-container">
+            <img src="img/logo metz.png" alt="Logo 1">
+            <img src="img/logo_partenaire1.png" alt="Logo 2">
+            <img src="img/logo_partenaire2.png" alt="Logo 3">
+            <img src="img/logo_partenaire3.png" alt="Logo 4">
+            
+            <img src="img/logo metz.png" alt="Logo 1">
+            <img src="img/logo_partenaire1.png" alt="Logo 2">
+            <img src="img/logo_partenaire2.png" alt="Logo 3">
+            <img src="img/logo_partenaire3.png" alt="Logo 4">
+        </div>
     </div>
 
 </body>
